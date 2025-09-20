@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Crowdfunding - โครงการทั้งหมด</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>โครงการทั้งหมด</h1>
+  <div>
+    <input id="searchBox" placeholder="ค้นหาโครงการ...">
+    <select id="sortSelect">
+      <option value="newest">ใหม่สุด</option>
+      <option value="deadline">ใกล้หมดเวลา</option>
+      <option value="funded">ระดมได้มากสุด</option>
+    </select>
+  </div>
+  <div id="projectList"></div>
+  <script src="js/model.js"></script>
+  <script src="js/view.js"></script>
+  <script src="js/controller.js"></script>
+  <script>
+    Controller.initProjectList();
+  </script>
+</body>
+</html>
