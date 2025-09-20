@@ -3,68 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Crowdfunding - โครงการทั้งหมด</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      margin: 20px;
-      background: #f4f6f9;
-      color: #333;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    input, select {
-      padding: 8px;
-      font-size: 14px;
-    }
-    #projectList {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 15px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 15px;
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: scale(1.02);
-    }
-    .progress {
-      background: #eee;
-      border-radius: 6px;
-      overflow: hidden;
-      margin: 8px 0;
-      height: 12px;
-    }
-    .progress div {
-      background: #4caf50;
-      height: 100%;
-      transition: width 0.3s;
-    }
-    a {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 6px 10px;
-      text-decoration: none;
-      background: #2196f3;
-      color: #fff;
-      border-radius: 6px;
-      font-size: 13px;
-    }
-    a:hover {
-      background: #0b7dda;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <h1>โครงการทั้งหมด</h1>
@@ -75,72 +14,16 @@
       <option value="deadline">ใกล้หมดเวลา</option>
       <option value="funded">ระดมได้มากสุด</option>
     </select>
-    <a href="stats.html" style="display: block; text-align: center; margin-top: 20px;">ดูสถิติการสนับสนุน</a>
-  </div>  
+  </div>
   <div id="projectList">กำลังโหลด...</div>
+  
+  <a href="stats.html" class="stats-link">ดูสถิติการสนับสนุน</a>
+
+  <script src="js/model.js"></script>
+  <script src="js/view.js"></script>
+  <script src="js/controller.js"></script>
   <script>
-    // โหลดข้อมูลจำลองจากไฟล์ JSON
-    async function loadData() {
-      const res = await fetch("data/db.json");
-      return await res.json();
-    }
-
-    // แสดงรายการโครงการ
-    function renderProjects(projects) {
-      const container = document.getElementById("projectList");
-      if (!projects.length) {
-        container.innerHTML = "<p>ไม่พบโครงการ</p>";
-        return;
-      }
-      container.innerHTML = projects.map(p => {
-        const percent = Math.min(100, (p.current / p.goal * 100).toFixed(1));
-        return `
-          <div class="card">
-            <h3>${p.name}</h3>
-            <p>เป้าหมาย: ${p.goal} บาท</p>
-            <p>ระดมแล้ว: ${p.current} บาท</p>
-            <p>สิ้นสุด: ${p.deadline}</p>
-            <div class="progress"><div style="width:${percent}%"></div></div>
-            <a href="project.html?id=${p.id}">รายละเอียด</a>
-          </div>
-        `;
-      }).join("");
-    }
-
-    // จัดเรียงโครงการ
-    function sortProjects(projects, type) {
-      const now = new Date();
-      if (type === "newest") {
-        return projects.sort((a, b) => Number(b.id) - Number(a.id));
-      } else if (type === "deadline") {
-        return projects.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
-      } else if (type === "funded") {
-        return projects.sort((a, b) => b.current - a.current);
-      }
-      return projects;
-    }
-
-    // เริ่มต้น
-    (async () => {
-      let data = await loadData();
-      let projects = data.projects;
-
-      const searchBox = document.getElementById("searchBox");
-      const sortSelect = document.getElementById("sortSelect");
-
-      function updateView() {
-        let filtered = projects.filter(p => 
-          p.name.toLowerCase().includes(searchBox.value.toLowerCase())
-        );
-        filtered = sortProjects(filtered, sortSelect.value);
-        renderProjects(filtered);
-      }
-
-      searchBox.addEventListener("input", updateView);
-      sortSelect.addEventListener("change", updateView);
-
-      updateView();
-    })();
+    Controller.initProjectList();
   </script>
 </body>
 </html>
