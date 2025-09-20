@@ -3,16 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <title>สถิติการสนับสนุน</title>
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      margin: 20px;
+      background: #f4f6f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: center;
+    }
+    .stats p {
+      font-size: 18px;
+      margin: 12px 0;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+    .failed {
+      color: red;
+      font-weight: bold;
+    }
+    a.back {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      padding: 6px 12px;
+      background: #2196f3;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    a.back:hover {
+      background: #0b7dda;
+    }
+  </style>
 </head>
 <body>
-  <h1>สรุปสถิติ</h1>
-  <div id="statsView"></div>
-  <script src="js/model.js"></script>
-  <script src="js/view.js"></script>
-  <script src="js/controller.js"></script>
+  <h1>สถิติการสนับสนุน</h1>
+  <div id="statsView" class="card">กำลังโหลด...</div>
+  <a href="index.html" class="back">⬅ กลับไปหน้ารวมโครงการ</a>
+
   <script>
-    Controller.initStats();
+    // โหลดข้อมูล
+    async function loadData() {
+      const res = await fetch("data/db.json");
+      return await res.json();
+    }
+
+    // แสดงสถิติ
+    function renderStats(pledges) {
+      const success = pledges.filter(p => p.status === "success").length;
+      const failed = pledges.filter(p => p.status === "failed").length;
+      const totalAmount = pledges
+        .filter(p => p.status === "success")
+        .reduce((sum, p) => sum + p.amount, 0);
+
+      document.getElementById("statsView").innerHTML = `
+        <div class="stats">
+          <p class="success">✅ สนับสนุนสำเร็จ: ${success} ครั้ง</p>
+          <p class="failed">❌ สนับสนุนถูกปฏิเสธ: ${failed} ครั้ง</p>
+          <p><strong>💰 ยอดรวมที่สนับสนุนสำเร็จ:</strong> ${totalAmount} บาท</p>
+        </div>
+      `;
+    }
+
+    // เริ่มต้น
+    (async () => {
+      const data = await loadData();
+      renderStats(data.pledges);
+    })();
   </script>
 </body>
 </html>
