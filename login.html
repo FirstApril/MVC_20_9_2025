@@ -3,38 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>เข้าสู่ระบบ</title>
-  <style>
-    body { font-family: Tahoma, sans-serif; background:#f4f6f9; text-align:center; padding:30px; }
-    select, button { padding:8px; margin-top:10px; }
-    .card { background:#fff; padding:20px; border-radius:10px; display:inline-block; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="card">
     <h2>เลือกผู้ใช้เพื่อเข้าสู่ระบบ</h2>
     <select id="userSelect"></select><br>
-    <button onclick="login()">เข้าสู่ระบบ</button>
+    <button onclick="Controller.login()">เข้าสู่ระบบ</button>
   </div>
 
+  <script src="js/model.js"></script>
+  <script src="js/view.js"></script>
+  <script src="js/controller.js"></script>
   <script>
-    async function loadUsers() {
-      const res = await fetch("data/db.json");
-      const data = await res.json();
-      const sel = document.getElementById("userSelect");
-      data.users.forEach(u => {
-        let opt = document.createElement("option");
-        opt.value = u.id;
-        opt.textContent = u.name;
-        sel.appendChild(opt);
-      });
-    }
-    function login() {
-      const userId = document.getElementById("userSelect").value;
-      sessionStorage.setItem("currentUser", userId);
-      alert("เข้าสู่ระบบสำเร็จ!");
-      window.location.href = "index.html";
-    }
-    loadUsers();
+    Controller.initLogin();
   </script>
 </body>
 </html>
