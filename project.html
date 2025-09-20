@@ -3,110 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>รายละเอียดโครงการ</title>
-  <style>
-    body { font-family: Tahoma, sans-serif; margin:20px; background:#f4f6f9; color:#333; }
-    h1,h2 { text-align:center; }
-    .card { background:#fff; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); padding:20px; max-width:600px; margin:20px auto; }
-    .progress { background:#eee; border-radius:6px; overflow:hidden; margin:10px 0; height:16px; }
-    .progress div { background:#4caf50; height:100%; transition:width 0.3s; }
-    .reward { background:#fafafa; border:1px solid #ddd; padding:12px; border-radius:6px; margin-bottom:10px; }
-    .pledgeForm { margin-top:20px; padding:15px; border:1px dashed #aaa; border-radius:8px; background:#fdfdfd; }
-    input, select, button { padding:8px; margin:6px 0; width:100%; }
-    button { background:#2196f3; color:#fff; border:none; border-radius:6px; cursor:pointer; }
-    button:hover { background:#0b7dda; }
-    a.back { display:inline-block; margin-top:20px; text-decoration:none; padding:6px 12px; background:#777; color:#fff; border-radius:6px; font-size:14px; }
-    a.back:hover { background:#555; }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <h1>รายละเอียดโครงการ</h1>
   <div id="projectDetail" class="card">กำลังโหลด...</div>
   <a href="index.html" class="back">⬅ กลับไปหน้ารวมโครงการ</a>
 
+  <script src="js/model.js"></script>
+  <script src="js/view.js"></script>
+  <script src="js/controller.js"></script>
   <script>
-    async function loadData() {
-      const res = await fetch("data/db.json");
-      return await res.json();
-    }
-
-    function renderProjectDetail(project, rewards) {
-      const container = document.getElementById("projectDetail");
-      if (!project) { container.innerHTML = "<p>ไม่พบโครงการ</p>"; return; }
-      const percent = Math.min(100, (project.current / project.goal * 100).toFixed(1));
-
-      container.innerHTML = `
-        <h2>${project.name}</h2>
-        <p><strong>คำอธิบาย:</strong> ${project.description}</p>
-        <p><strong>เป้าหมาย:</strong> ${project.goal} บาท</p>
-        <p><strong>ระดมแล้ว:</strong> ${project.current} บาท</p>
-        <p><strong>สิ้นสุด:</strong> ${project.deadline}</p>
-        <div class="progress"><div style="width:${percent}%"></div></div>
-        <h3>ระดับรางวัล (Reward Tiers)</h3>
-        ${rewards.map(r => `
-          <div class="reward">
-            <p><strong>${r.name}</strong></p>
-            <p>ขั้นต่ำ: ${r.minAmount} บาท</p>
-            <p>คงเหลือ: ${r.quota}</p>
-          </div>
-        `).join("")}
-        <div class="pledgeForm">
-          <h3>สนับสนุนโครงการนี้</h3>
-          <label>จำนวนเงินที่สนับสนุน:</label>
-          <input type="number" id="pledgeAmount" min="1">
-          <label>เลือกระดับรางวัล:</label>
-          <select id="rewardSelect">
-            <option value="">ไม่เลือกรางวัล</option>
-            ${rewards.map(r => `<option value="${r.name}" data-min="${r.minAmount}" data-quota="${r.quota}">${r.name} (ขั้นต่ำ ${r.minAmount} บาท, เหลือ ${r.quota})</option>`).join("")}
-          </select>
-          <button onclick="makePledge('${project.id}')">ยืนยันการสนับสนุน</button>
-        </div>
-      `;
-    }
-
-    async function makePledge(projectId) {
-      const userId = sessionStorage.getItem("currentUser");
-      if (!userId) {
-        alert("กรุณาเข้าสู่ระบบก่อน");
-        window.location.href = "login.html";
-        return;
-      }
-
-      const amount = Number(document.getElementById("pledgeAmount").value);
-      const rewardSel = document.getElementById("rewardSelect");
-      const rewardName = rewardSel.value;
-      const min = rewardSel.options[rewardSel.selectedIndex].dataset.min || 0;
-      const quota = rewardSel.options[rewardSel.selectedIndex].dataset.quota || Infinity;
-
-      const res = await fetch("data/db.json");
-      const data = await res.json();
-      const project = data.projects.find(p => p.id === projectId);
-
-      let status = "failed";
-      const now = new Date();
-      if (new Date(project.deadline) > now) {
-        if (rewardName === "" && amount > 0) {
-          status = "success";
-        } else if (amount >= min && quota > 0) {
-          status = "success";
-        }
-      }
-
-      if (status === "success") {
-        alert("✅ สนับสนุนสำเร็จ!");
-      } else {
-        alert("❌ การสนับสนุนไม่ผ่านตามกติกา");
-      }
-    }
-
-    (async () => {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
-      const data = await loadData();
-      const project = data.projects.find(p => p.id === id);
-      const rewards = data.rewardTiers.filter(r => r.projectId === id);
-      renderProjectDetail(project, rewards);
-    })();
+    Controller.initProjectDetail();
   </script>
 </body>
-</html></body>
 </html>
