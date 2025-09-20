@@ -3,15 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <title>รายละเอียดโครงการ</title>
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      margin: 20px;
+      background: #f4f6f9;
+      color: #333;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    .progress {
+      background: #eee;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 10px 0;
+      height: 16px;
+    }
+    .progress div {
+      background: #4caf50;
+      height: 100%;
+      transition: width 0.3s;
+    }
+    .rewards {
+      margin-top: 20px;
+    }
+    .reward {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    a.back {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      padding: 6px 12px;
+      background: #2196f3;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    a.back:hover {
+      background: #0b7dda;
+    }
+  </style>
 </head>
 <body>
-  <div id="projectDetail"></div>
-  <script src="js/model.js"></script>
-  <script src="js/view.js"></script>
-  <script src="js/controller.js"></script>
+  <h1>รายละเอียดโครงการ</h1>
+  <div id="projectDetail" class="card">กำลังโหลด...</div>
+  <a href="index.html" class="back">⬅ กลับไปหน้ารวมโครงการ</a>
+
   <script>
-    Controller.initProjectDetail();
+    // โหลดข้อมูล
+    async function loadData() {
+      const res = await fetch("data/db.json");
+      return await res.json();
+    }
+
+    // แสดงรายละเอียดโครงการ
+    function renderProjectDetail(project, rewards) {
+      const container = document.getElementById("projectDetail");
+      if (!project) {
+        container.innerHTML = "<p>ไม่พบโครงการ</p>";
+        return;
+      }
+      const percent = Math.min(100, (project.current / project.goal * 100).toFixed(1));
+
+      container.innerHTML = `
+        <h2>${project.name}</h2>
+        <p><strong>คำอธิบาย:</strong> ${project.description}</p>
+        <p><strong>เป้าหมาย:</strong> ${project.goal} บาท</p>
+        <p><strong>ระดมแล้ว:</strong> ${project.current} บาท</p>
+        <p><strong>สิ้นสุด:</strong> ${project.deadline}</p>
+        <div class="progress"><div style="width:${percent}%"></div></div>
+        <h3>ระดับรางวัล (Reward Tiers)</h3>
+        <div class="rewards">
+          ${rewards.map(r => `
+            <div class="reward">
+              <p><strong>${r.name}</strong></p>
+              <p>ขั้นต่ำ: ${r.minAmount} บาท</p>
+              <p>คงเหลือ: ${r.quota}</p>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    // เริ่มต้น
+    (async () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      const data = await loadData();
+      const project = data.projects.find(p => p.id === id);
+      const rewards = data.rewardTiers.filter(r => r.projectId === id);
+
+      renderProjectDetail(project, rewards);
+    })();
   </script>
 </body>
 </html>
