@@ -3,7 +3,7 @@ const Model = (() => {
 
   async function loadData() {
     if (!Object.keys(data).length) {
-      const res = await fetch("data/db.json");
+      const res = await fetch("/data/db.json");
       data = await res.json();
     }
     return data;
