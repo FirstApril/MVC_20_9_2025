@@ -1,0 +1,86 @@
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  margin: 20px;
+  background: #f4f6f9;
+  color: #333;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+input, select {
+  padding: 8px;
+  font-size: 14px;
+}
+#projectList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 15px;
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: scale(1.02);
+}
+.progress {
+  background: #eee;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 8px 0;
+  height: 12px;
+}
+.progress div {
+  background: #4caf50;
+  height: 100%;
+  transition: width 0.3s;
+}
+a {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 10px;
+  text-decoration: none;
+  background: #2196f3;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 13px;
+}
+a:hover {
+  background: #0b7dda;
+}
+.pledgeForm { margin-top:20px; padding:15px; border:1px dashed #aaa; border-radius:8px; background:#fdfdfd; }
+input, select, button { padding:8px; margin:6px 0; width:100%; }
+button { background:#2196f3; color:#fff; border:none; border-radius:6px; cursor:pointer; }
+button:hover { background:#0b7dda; }
+a.back { display:inline-block; margin-top:20px; text-decoration:none; padding:6px 12px; background:#777; color:#fff; border-radius:6px; font-size:14px; }
+a.back:hover { background:#555; }
+.stats-link {
+    text-align: center;
+    margin-top: 20px;
+    background: #4CAF50;
+}
+.stats-link:hover {
+    background: #45a049;
+}
+.stats p {
+  font-size: 18px;
+  margin: 12px 0;
+}
+.success {
+  color: green;
+  font-weight: bold;
+}
+.failed {
+  color: red;
+  font-weight: bold;
+}
