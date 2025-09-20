@@ -1,0 +1,11 @@
+{
+  "projects": [
+    { "id": "10000001", "name": "ระบบรดน้ำอัตโนมัติ", "goal": 5000, "deadline": "2025-12-31", "current": 2500, "description": "โครงการเพื่อทำระบบรดน้ำต้นไม้" },
+    { "id": "10000002", "name": "หุ่นยนต์ทำการบ้าน", "goal": 10000, "deadline": "2025-11-30", "current": 6000, "description": "โครงการเพื่อช่วยนักเรียน" }
+  ],
+  "pledges": [
+    { "user": "User1", "projectId": "10000001", "amount": 1000, "status": "success" },
+    { "user": "User2", "projectId": "10000001", "amount": 200, "status": "failed" },
+    { "user": "User3", "projectId": "10000002", "amount": 5000, "status": "success" }
+  ]
+}
