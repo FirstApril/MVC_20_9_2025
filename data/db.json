@@ -1,11 +1,118 @@
 {
   "projects": [
-    { "id": "10000001", "name": "ระบบรดน้ำอัตโนมัติ", "goal": 5000, "deadline": "2025-12-31", "current": 2500, "description": "โครงการเพื่อทำระบบรดน้ำต้นไม้" },
-    { "id": "10000002", "name": "หุ่นยนต์ทำการบ้าน", "goal": 10000, "deadline": "2025-11-30", "current": 6000, "description": "โครงการเพื่อช่วยนักเรียน" }
+    {
+      "id": "10000001",
+      "name": "ระบบรดน้ำอัตโนมัติ",
+      "description": "โครงการทำระบบรดน้ำต้นไม้ด้วย IoT",
+      "goal": 5000,
+      "current": 2500,
+      "deadline": "2025-12-31",
+      "category": "เทคโนโลยี"
+    },
+    {
+      "id": "10000002",
+      "name": "หุ่นยนต์ช่วยทำการบ้าน",
+      "description": "หุ่นยนต์เพื่อช่วยนักเรียนทำการบ้านและเรียนรู้",
+      "goal": 10000,
+      "current": 6000,
+      "deadline": "2025-11-30",
+      "category": "เทคโนโลยี"
+    },
+    {
+      "id": "10000003",
+      "name": "โครงการปลูกป่า CS Green",
+      "description": "ฟื้นฟูพื้นที่ป่าเสื่อมโทรมโดยนักเรียน CS Camp",
+      "goal": 8000,
+      "current": 3000,
+      "deadline": "2026-01-15",
+      "category": "สิ่งแวดล้อม"
+    },
+    {
+      "id": "10000004",
+      "name": "ห้องสมุดดิจิทัลโรงเรียน",
+      "description": "สร้างห้องสมุดออนไลน์ให้ทุกคนเข้าถึงได้",
+      "goal": 12000,
+      "current": 9000,
+      "deadline": "2025-10-15",
+      "category": "การศึกษา"
+    },
+    {
+      "id": "10000005",
+      "name": "ค่ายเขียนโปรแกรมเด็ก",
+      "description": "อบรมเขียนโปรแกรม Python ให้กับนักเรียนมัธยม",
+      "goal": 7000,
+      "current": 3500,
+      "deadline": "2025-11-20",
+      "category": "การศึกษา"
+    },
+    {
+      "id": "10000006",
+      "name": "พลังงานแสงอาทิตย์ชุมชน",
+      "description": "ติดตั้งแผงโซลาร์เซลล์ในพื้นที่ชนบท",
+      "goal": 20000,
+      "current": 15000,
+      "deadline": "2026-02-10",
+      "category": "สิ่งแวดล้อม"
+    },
+    {
+      "id": "10000007",
+      "name": "แอปพลิเคชันสอนภาษา",
+      "description": "สร้างแอปมือถือสำหรับเรียนภาษาอังกฤษฟรี",
+      "goal": 15000,
+      "current": 4000,
+      "deadline": "2025-12-05",
+      "category": "เทคโนโลยี"
+    },
+    {
+      "id": "10000008",
+      "name": "ครัวกลางเพื่อชุมชน",
+      "description": "จัดตั้งครัวกลางเพื่อแจกอาหารให้ผู้ขาดแคลน",
+      "goal": 9000,
+      "current": 7500,
+      "deadline": "2025-11-25",
+      "category": "สังคม"
+    }
+  ],
+  "rewardTiers": [
+    { "projectId": "10000001", "name": "ขอบคุณ", "minAmount": 100, "quota": 50 },
+    { "projectId": "10000001", "name": "ป้ายชื่อผู้สนับสนุน", "minAmount": 500, "quota": 20 },
+    { "projectId": "10000002", "name": "สติ๊กเกอร์หุ่นยนต์", "minAmount": 200, "quota": 100 },
+    { "projectId": "10000002", "name": "โมเดลหุ่นยนต์", "minAmount": 1000, "quota": 30 },
+    { "projectId": "10000003", "name": "เกียรติบัตรสีเขียว", "minAmount": 300, "quota": 40 },
+    { "projectId": "10000003", "name": "เสื้อ CS Green", "minAmount": 800, "quota": 15 },
+    { "projectId": "10000004", "name": "บัตรสมาชิกห้องสมุด", "minAmount": 200, "quota": 200 },
+    { "projectId": "10000004", "name": "สิทธิ์ยืมหนังสือพิเศษ", "minAmount": 1000, "quota": 50 },
+    { "projectId": "10000005", "name": "Sticker Python", "minAmount": 100, "quota": 100 },
+    { "projectId": "10000005", "name": "เสื้อค่าย", "minAmount": 500, "quota": 25 },
+    { "projectId": "10000006", "name": "ประกาศนียบัตรพลังงานสะอาด", "minAmount": 500, "quota": 40 },
+    { "projectId": "10000006", "name": "เข้าชมโครงการ", "minAmount": 2000, "quota": 10 },
+    { "projectId": "10000007", "name": "Premium Access 1 เดือน", "minAmount": 300, "quota": 50 },
+    { "projectId": "10000007", "name": "Premium Access 1 ปี", "minAmount": 2000, "quota": 5 },
+    { "projectId": "10000008", "name": "ของที่ระลึก", "minAmount": 150, "quota": 80 },
+    { "projectId": "10000008", "name": "เสื้อครัวกลาง", "minAmount": 500, "quota": 20 }
+  ],
+  "users": [
+    { "id": "u01", "name": "Alice" },
+    { "id": "u02", "name": "Bob" },
+    { "id": "u03", "name": "Charlie" },
+    { "id": "u04", "name": "David" },
+    { "id": "u05", "name": "Eva" },
+    { "id": "u06", "name": "Frank" },
+    { "id": "u07", "name": "Grace" },
+    { "id": "u08", "name": "Helen" },
+    { "id": "u09", "name": "Ian" },
+    { "id": "u10", "name": "Jane" }
   ],
   "pledges": [
-    { "user": "User1", "projectId": "10000001", "amount": 1000, "status": "success" },
-    { "user": "User2", "projectId": "10000001", "amount": 200, "status": "failed" },
-    { "user": "User3", "projectId": "10000002", "amount": 5000, "status": "success" }
+    { "user": "u01", "projectId": "10000001", "amount": 1000, "status": "success" },
+    { "user": "u02", "projectId": "10000001", "amount": 50, "status": "failed" },
+    { "user": "u03", "projectId": "10000002", "amount": 200, "status": "success" },
+    { "user": "u04", "projectId": "10000002", "amount": 100, "status": "failed" },
+    { "user": "u05", "projectId": "10000003", "amount": 300, "status": "success" },
+    { "user": "u06", "projectId": "10000004", "amount": 500, "status": "success" },
+    { "user": "u07", "projectId": "10000005", "amount": 80, "status": "failed" },
+    { "user": "u08", "projectId": "10000006", "amount": 2000, "status": "success" },
+    { "user": "u09", "projectId": "10000007", "amount": 100, "status": "failed" },
+    { "user": "u10", "projectId": "10000008", "amount": 500, "status": "success" }
   ]
 }
